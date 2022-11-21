@@ -12,26 +12,49 @@ class ViewController: UIViewController {
     @IBOutlet var lable: UILabel!
     
     var number: Int = 0
-    var round: Int = 0
+    var round: Int = 1
     var points: Int = 0
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        // Do any additional setup after loading the view.
+        print("viewDidLoad")
+        // генерируем случайное число
+                    self.number = Int.random(in: 1...50)
+                    //передаем значение случайного числа в lable
+                    self.lable.text = String(self.number)
+        
+    }
+    
+    override func loadView() {
+        super.loadView()
+        print("loadView")
+        //Создаем метку для вывода номера версии
+       let versionLable = UILabel(frame: CGRect(x: 20, y: 10, width: 200, height: 20))
+        // изменяем текс метки
+        versionLable.text = "Версия 1.1"
+        // Добавляем метку в родительский view
+        self.view.addSubview(versionLable)
+    }
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        print("viewWillAppear")
+    }
+    override func viewDidAppear(_ animated: Bool) {
+        super.viewDidAppear(animated)
+        print("viewDidAppear")
+    }
+    override func viewWillDisappear(_ animated: Bool) {
+        super.viewWillDisappear(animated)
+        print("viewWillDisappear")
+    }
+    override func viewDidDisappear(_ animated: Bool) {
+        super.viewDidDisappear(animated)
+        print("viewDidDisappear")
     }
     @IBAction func checkNumber() {
-        //если игра только начинается
-        
-        if self.round == 0 {
-            // генерируем случайное число
-            self.number = Int.random(in: 1...50)
-            //передаем значение случайного числа в lable
-            self.lable.text = String(self.number)
-            //устанавливаем счетчик раундов на 1
-            self.round = 1
-        } else {
+       
             //получаем значение на слайдере
-            let numSlider = Int(self.slider.value.rounded())
+            let numSlider = Int(self.slider.value)
             //сравниваем значение на слайдере и подсчитываем очки
             if numSlider > self.number {
                 self.points += 50 - numSlider + self.number
@@ -41,6 +64,8 @@ class ViewController: UIViewController {
                 self.points += 50
             }
             if self.round == 5 {
+                //выводим информационное окно
+                //с результатами игры
                 let alert = UIAlertController(
                     title: "Игра окончена",
                     message: "Вы заработали \(self.points) очков",
@@ -57,9 +82,17 @@ class ViewController: UIViewController {
             self.lable.text = String(self.number)
             
             }
-            
-        }
+    
+    @IBAction func showNextScreen() {
+        //загрузка Storyboard
+        let storyboard = UIStoryboard(name: "Main", bundle: nil)
+        // загрузка View Controller и его сцены со Storyboard
+        let viewController = storyboard.instantiateViewController(identifier: "SecondViewController")
+        //отображение сцены на экране
+        self.present(viewController, animated: true)
     }
+        }
+    
 
 
 
