@@ -91,9 +91,7 @@ class ViewController: UIViewController {
             
             }
     
-    @IBAction func showNextScreen() {
-        self.present(secondViewController, animated: true, completion: nil)
-    }
+   
         }
     
 
