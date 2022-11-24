@@ -15,6 +15,14 @@ class ViewController: UIViewController {
     var round: Int = 1
     var points: Int = 0
     
+    lazy var secondViewController: SecondViewController = getSecondViewController()
+    
+    private func getSecondViewController() -> SecondViewController{
+        let storyBoard = UIStoryboard(name: "Main", bundle: nil)
+        let viewController = storyBoard.instantiateViewController(identifier: "SecondViewController")
+        return viewController as! SecondViewController
+    }
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         print("viewDidLoad")
@@ -84,12 +92,7 @@ class ViewController: UIViewController {
             }
     
     @IBAction func showNextScreen() {
-        //загрузка Storyboard
-        let storyboard = UIStoryboard(name: "Main", bundle: nil)
-        // загрузка View Controller и его сцены со Storyboard
-        let viewController = storyboard.instantiateViewController(identifier: "SecondViewController")
-        //отображение сцены на экране
-        self.present(viewController, animated: true)
+        self.present(secondViewController, animated: true, completion: nil)
     }
         }
     
